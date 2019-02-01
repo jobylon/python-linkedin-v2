@@ -54,6 +54,10 @@ NETWORK_UPDATES = enum('NetworkUpdate',
                        SHARED='SHAR',
                        VIRAL='VIRL')
 
+PROJECTIONS = enum('Projection',
+                   EXPAND_PROFILE_PICTURE={'projection': '(id,profilePicture(displayImage~:playableStreams))'},
+                   EXPAND_EMAIL={'q': 'members', 'projection': '(elements*(handle~))'})
+
 
 class LinkedInDeveloperAuthentication(object):
     """
@@ -197,7 +201,7 @@ class LinkedInApplication(object):
         return json_response
 
     def get_email(self):
-        url = '%s/emailAddress?q=members&projection=(elements*(handle~))' % ENDPOINTS.BASE
-        response = self.make_request('GET', url)
+        url = '%s/emailAddress' % ENDPOINTS.BASE
+        response = self.make_request('GET', url, params=PROJECTIONS.EXPAND_EMAIL)
         raise_for_error(response)
         return response.json()
