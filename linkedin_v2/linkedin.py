@@ -55,7 +55,7 @@ NETWORK_UPDATES = enum('NetworkUpdate',
                        VIRAL='VIRL')
 
 PROJECTIONS = enum('Projection',
-                   EXPAND_PROFILE_PICTURE={'projection': '(id,profilePicture(displayImage~:playableStreams))'},
+                   EXPAND_PROFILE_PICTURE={'projection': '(id,firstName,lastName,profilePicture(displayImage~:playableStreams))'},
                    EXPAND_EMAIL={'q': 'members', 'projection': '(elements*(handle~))'})
 
 
